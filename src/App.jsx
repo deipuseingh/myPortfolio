@@ -47,16 +47,17 @@ const Particles = ({ isDark }) => {
   const [particles, setParticles] = useState([]);
 
   useEffect(() => {
-    const newParticles = Array.from({ length: 50 }, (_, i) => ({
+    const newParticles = Array.from({ length: isDark ? 50 : 80 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
       duration: Math.random() * 3 + 2,
       delay: Math.random() * 0.5,
       size: Math.random() * 3 + 1,
+      color: isDark ? "cyan" : Math.random() > 0.5 ? "cyan" : "blue",
     }));
     setParticles(newParticles);
-  }, []);
+  }, [isDark]);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -64,7 +65,11 @@ const Particles = ({ isDark }) => {
         <motion.div
           key={particle.id}
           className={`absolute rounded-full ${
-            isDark ? "bg-cyan-400/40" : "bg-cyan-500/30"
+            isDark
+              ? "bg-cyan-400/40"
+              : particle.color === "cyan"
+                ? "bg-cyan-400/50 shadow-lg shadow-cyan-300/50"
+                : "bg-blue-400/50 shadow-lg shadow-blue-300/50"
           }`}
           style={{
             left: `${particle.left}%`,
@@ -75,6 +80,7 @@ const Particles = ({ isDark }) => {
           animate={{
             y: [0, -50, 0],
             opacity: [0, 1, 0],
+            scale: isDark ? [1, 1, 1] : [0.8, 1.2, 0.8],
           }}
           transition={{
             duration: particle.duration,
@@ -603,12 +609,22 @@ export default function App() {
                     whileHover={{ x: 10 }}
                     className={`flex gap-4 p-4 rounded-lg bg-gradient-to-br ${cardBg} border ${cardBorder} hover:border-cyan-500/50 transition-colors`}
                   >
-                    <item.icon
+                    <motion.div
                       className="text-cyan-400 flex-shrink-0"
-                      size={24}
-                    />
+                      whileHover={{ rotate: 10, scale: 1.1 }}
+                    >
+                      <item.icon size={24} />
+                    </motion.div>
                     <div>
-                      <h3 className="font-semibold text-white">{item.title}</h3>
+                      <h3
+                        className={`font-semibold transition-colors duration-300 ${
+                          isDark
+                            ? "text-white"
+                            : "text-slate-900 hover:text-cyan-600"
+                        }`}
+                      >
+                        {item.title}
+                      </h3>
                       <p
                         className={isDark ? "text-gray-400" : "text-slate-600"}
                       >
@@ -655,11 +671,19 @@ export default function App() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-100px" }}
-                  className={`rounded-xl bg-gradient-to-br ${cardBg} border ${cardBorder} hover:border-cyan-500/50 p-8 transition-colors`}
+                  className={`rounded-xl bg-gradient-to-br ${cardBg} border ${cardBorder} hover:border-cyan-500/50 p-8 transition-all duration-300 ${
+                    !isDark ? "hover:shadow-lg hover:shadow-cyan-400/40" : ""
+                  }`}
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h3 className="text-2xl font-bold text-white">
+                      <h3
+                        className={`text-2xl font-bold transition-all duration-300 ${
+                          isDark
+                            ? "text-white hover:text-cyan-400"
+                            : "text-slate-900 hover:text-cyan-600 hover:translate-x-1"
+                        }`}
+                      >
                         {exp.title}
                       </h3>
                       <p className="text-cyan-400 font-semibold">
@@ -723,20 +747,33 @@ export default function App() {
                   whileInView="visible"
                   whileHover={{ y: -10 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  className={`group relative rounded-xl bg-gradient-to-br ${cardBg} border ${cardBorder} hover:border-cyan-500/50 overflow-hidden transition-all duration-300`}
+                  className={`group relative rounded-xl bg-gradient-to-br ${cardBg} border ${cardBorder} hover:border-cyan-500/50 overflow-hidden transition-all duration-300 ${
+                    !isDark ? "hover:shadow-lg hover:shadow-cyan-300/50" : ""
+                  }`}
                 >
                   {/* Glow effect on hover */}
                   <div
                     className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
                       isDark
                         ? "bg-gradient-to-br from-cyan-500/10 to-blue-500/10"
-                        : "bg-gradient-to-br from-cyan-300/10 to-blue-300/10"
+                        : "bg-gradient-to-br from-cyan-400/20 to-blue-400/20"
                     }`}
                   />
 
                   <div className="relative p-6 h-full flex flex-col">
-                    <div className="text-6xl mb-4">{project.image}</div>
-                    <h3 className="text-xl font-bold text-white mb-3">
+                    <motion.div
+                      className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300"
+                      whileHover={{ rotate: 10 }}
+                    >
+                      {project.image}
+                    </motion.div>
+                    <h3
+                      className={`text-xl font-bold mb-3 transition-all duration-300 ${
+                        isDark
+                          ? "text-white group-hover:text-cyan-300"
+                          : "text-slate-900 group-hover:text-cyan-600"
+                      }`}
+                    >
                       {project.title}
                     </h3>
                     <p className={`${textSecondary} mb-6 flex-grow`}>
