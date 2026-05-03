@@ -546,7 +546,7 @@ export default function App() {
               <span className={isDark ? "text-white" : "text-slate-900"}>
                 About{" "}
               </span>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Me
               </span>
             </motion.h2>
@@ -658,7 +658,7 @@ export default function App() {
               <span className={isDark ? "text-white" : "text-slate-900"}>
                 Work{" "}
               </span>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Experience
               </span>
             </motion.h2>
@@ -733,7 +733,7 @@ export default function App() {
               <span className={isDark ? "text-white" : "text-slate-900"}>
                 Featured{" "}
               </span>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Projects
               </span>
             </motion.h2>
@@ -825,7 +825,7 @@ export default function App() {
               <span className={isDark ? "text-white" : "text-slate-900"}>
                 My{" "}
               </span>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Skills
               </span>
             </motion.h2>
@@ -884,7 +884,7 @@ export default function App() {
               <span className={isDark ? "text-white" : "text-slate-900"}>
                 Let's{" "}
               </span>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Connect
               </span>
             </motion.h2>
